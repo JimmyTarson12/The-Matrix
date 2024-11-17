@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Matrix</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            color: green;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #message {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Welcome to the Computer Matrix.</div>
+    <script>
+        async function connectUSB() {
+            try {
+                const device = await navigator.usb.requestDevice({
+                    filters: [{ vendorId: 0x2341 }] // Replace with your device's vendor ID
+                });
+                await device.open();
+                document.body.style.backgroundColor = "black";
+                document.getElementById('message').style.display = "block";
+            } catch (error) {
+                console.error('No device connected:', error);
+            }
+        }
+
+        document.body.addEventListener('click', () => {
+            connectUSB();
+        });
+    </script>
+</body>
+</html>
